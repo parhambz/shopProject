@@ -2,7 +2,9 @@
 require __dir__ . '/../includes/config.php';
 if (!$user->islogin()) {
     $generic->redirect("../index.php");
-    $userid = $_SESSION['user'];
+}
+if (!$user->isAdmin($_SESSION['user'])) {
+    $generic->redirect("../index.php");
 }
 if ($generic->ispost()) {
     $name = filter_input(INPUT_POST, "name");
@@ -13,7 +15,7 @@ if ($generic->ispost()) {
     $userid = $_SESSION['user'];
     $errors = $product->validateproduct($name, $description, $price, $sku);
     if (count($errors) == 0) {
-        $id = $product->addProduct($name, $description, $price, $sku, $userid,$categoryId);
+        $id = $product->addProduct($name, $description, $price, $sku, $userid, $categoryId);
         if ($id == -1) {
             echo "duplicate sku";
         } else {
@@ -31,7 +33,7 @@ $categoryAll = $category->getAllCategory();
     <body>
         <form method="POST" enctype="multipart/form-data">
             <label>Name : <input name="name"></label><br>
-             <label>Description : <textarea rows="10" cols="30" name="description" type="text" ></textarea></label><br>
+            <label>Description : <textarea rows="10" cols="30" name="description" type="text" ></textarea></label><br>
             <label>Price : <input name="price" type="number"></label><br>
             <label>SKU : <input name="sku" type="number"></label><br>
             <label>Picture : <input name="picture" type="file"></label><br>

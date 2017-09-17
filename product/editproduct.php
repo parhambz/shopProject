@@ -6,7 +6,7 @@ if (!$user->islogin()) {
     $generic->redirect("../index.php");
 }
 
-if (!$pro['userid'] == $_SESSION['user']) {
+if (!$user->isAdmin($_SESSION['user'])) {
     $generic->redirect("../index.php");
 }
 $name = $pro['name'];

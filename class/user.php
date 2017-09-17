@@ -86,4 +86,10 @@ function isLogIn(){
     return isset($_SESSION['user']);
     
 }
+function isAdmin($id){
+    $user=$this->getUserInfo($id);
+    if($user['rank']==2){
+        return TRUE;
+    }
+}
 }

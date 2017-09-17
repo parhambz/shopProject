@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2017 at 11:31 PM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 5.6.30
+-- Generation Time: Sep 18, 2017 at 12:57 AM
+-- Server version: 10.1.26-MariaDB
+-- PHP Version: 7.1.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -23,16 +25,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categury`
+-- Table structure for table `category`
 --
 
-CREATE TABLE `categury` (
+CREATE TABLE `category` (
   `id` int(11) NOT NULL,
-  `laptop` int(11) NOT NULL,
-  `printer` int(11) NOT NULL,
-  `phone` int(11) NOT NULL,
-  `other` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+  `name` varchar(50) COLLATE utf8mb4_persian_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `name`) VALUES
+(1, 'cat01'),
+(2, 'cat02');
 
 -- --------------------------------------------------------
 
@@ -98,16 +105,17 @@ CREATE TABLE `product` (
   `price` int(11) NOT NULL,
   `description` text COLLATE utf8_persian_ci NOT NULL,
   `sku` int(11) NOT NULL,
-  `userid` int(11) NOT NULL
+  `userid` int(11) NOT NULL,
+  `categoryId` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `name`, `price`, `description`, `sku`, `userid`) VALUES
-(4, 'productsds', 2000, 'a very bad product', 12345, 1),
-(5, 'product', 2500, 'a very bad product', 12346, 1);
+INSERT INTO `product` (`id`, `name`, `price`, `description`, `sku`, `userid`, `categoryId`) VALUES
+(4, 'productsds', 2000, 'a very bad product', 12345, 1, 1),
+(5, 'product', 2500, 'a very bad product', 12346, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -120,24 +128,26 @@ CREATE TABLE `user` (
   `firstname` varchar(50) COLLATE utf8_persian_ci NOT NULL,
   `lastname` varchar(50) COLLATE utf8_persian_ci NOT NULL,
   `email` varchar(200) COLLATE utf8_persian_ci NOT NULL,
-  `password` varchar(40) COLLATE utf8_persian_ci NOT NULL
+  `password` varchar(40) COLLATE utf8_persian_ci NOT NULL,
+  `rank` tinyint(4) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`) VALUES
-(1, 'parham', 'bagherzadeh', 'parham@gmail.com', '123456');
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `password`, `rank`) VALUES
+(1, 'parham', 'bagherzadeh', 'parham@gmail.com', '123456', 2),
+(2, 'ali', 'ahmadi', 'ali@gmail.com', '123456', 0);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `categury`
+-- Indexes for table `category`
 --
-ALTER TABLE `categury`
+ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -165,10 +175,10 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `categury`
+-- AUTO_INCREMENT for table `category`
 --
-ALTER TABLE `categury`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `comment`
 --
@@ -183,7 +193,8 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

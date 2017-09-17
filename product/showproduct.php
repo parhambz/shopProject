@@ -39,7 +39,7 @@ if ($generic->ispost()) {
         <br>
         <?php
         if ($user->islogin()) {
-            if ($_SESSION['user'] == $pro['userid']) {
+            if ($user->isAdmin($_SESSION['user'])) {
                 echo "<a href=$editurl>Edit </a>";
                 echo "<a href=$deleteProductUrl> Delete</a>";
             }

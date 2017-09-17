@@ -14,10 +14,7 @@ class product {
             ':categoryId'=>$categoryId,
         ]);
         if ($res === false&&$stmt->errorcode()==23000){
-            return -1;
-            
-        } 
-    
+            return -1;} 
         if ($res === false) {
             var_dump($stmt->errorinfo());
             echo "<br>";

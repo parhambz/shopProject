@@ -6,7 +6,12 @@ class comment {
         if (strlen($commentTxt) <= 0) {
             return FALSE;
         } else {
+            if (strlen($commentTxt) >=700 ) {
+            return FALSE;
+        } else {
+            
             return TRUE;
+    }
         }
     }
     function addComment($commentTxt,$userId,$proId,$replyId){
@@ -67,5 +72,45 @@ class comment {
         }
         return $stmt->fetch(PDO::FETCH_ASSOC);
         
+    }
+    function setStatusValidate($id){
+        global $db;
+        $query = "UPDATE comment SET status=1 WHERE id=:id";
+    $stmt = $db->prepare($query);
+    $res = $stmt->execute([':id' =>$id]);      
+    
+    if($res===FALSE){
+            var_dump($stmt->errorinfo());
+            echo '<br>';
+            echo $query;
+            exit();
+        }
+        
+    }
+    function setStatusReject($id){
+        global $db;
+        $query = "UPDATE comment SET status=2 WHERE id=:id";
+    $stmt = $db->prepare($query);
+    $res = $stmt->execute([':id' =>$id]);      
+    
+    if($res===FALSE){
+            var_dump($stmt->errorinfo());
+            echo '<br>';
+            echo $query;
+            exit();
+        }
+        
+    }
+    function getStatusedComments($status){
+         global $db;
+        $query="SELECT * FROM comment WHERE status=:status";
+        $stmt=$db->prepare($query);
+        $res=$stmt->execute([':status'=>$status]);
+        if ($res===FALSE){
+            var_dump($stmt->errorinfo());
+            echo '<br>';
+            echo $query;
+        }
+        return $stmt->fetchall(PDO::FETCH_ASSOC);
     }
 }

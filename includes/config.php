@@ -8,6 +8,7 @@ $dbname="shop";
 $db= new PDO("mysql:dbname=$dbname;host=127.0.0.1",$username,$password);
 
 $mainfolder="/shop/shopproject/";
+$domain="localhost";
 
 spl_autoload_register(function ($classname){
 require __dir__.'/../class/'.$classname.'.php';  

@@ -12,4 +12,5 @@ $mainfolder="/shop/shopproject/";
     ?>
     <li><a href='<?= $mainfolder ?>category/showcategory.php'>category</a></li>
 <li><a href='<?= $mainfolder ?>'>Home</a></li>
+<li><a href='<?= $mainfolder ?>buy/showcart.php'>Cart</a></li>
        

@@ -37,6 +37,7 @@ if ($generic->ispost()) {
 
         </table>
         <br>
+        <a href="../buy/addtocart.php?proId=<?=$proId?>&n=1">Add to cart</a>
         <?php
         if ($user->islogin()) {
             if ($user->isAdmin($_SESSION['user'])) {

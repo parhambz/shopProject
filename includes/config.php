@@ -19,6 +19,7 @@ $generic = new generic();
 $product = new product();
 $comment = new comment();
 $category = new category();
+$buy = new buy();
 
 register_shutdown_function(function (){
 $content= ob_get_clean();

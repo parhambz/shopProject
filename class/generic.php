@@ -22,5 +22,10 @@ class generic {
             return $msg;
         }
     }
-
+    function refer (){
+        if (isset($_SERVER['HTTP_REFERER'])){
+        $this->redirect($_SERVER['HTTP_REFERER']); 
+        }
+        $this->redirect("./index.php");
+    }
 }

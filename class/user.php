@@ -80,16 +80,19 @@ function idToSession ($id){
     $_SESSION['user']=$id;
 }
 function logout(){
+    global $userRank;
     unset($_SESSION['user']);
+    $_SESSION['rank']=-1;
 }
 function isLogIn(){
     return isset($_SESSION['user']);
     
 }
 function isAdmin($id){
+    if (isset($_SESSION['user'])){
     $user=$this->getUserInfo($id);
     if($user['rank']==2){
         return TRUE;
     }
-}
+}}
 }

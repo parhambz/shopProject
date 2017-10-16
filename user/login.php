@@ -14,6 +14,7 @@ if ($generic->ispost()) {
         $id = $user->login($email, $password);
         $user->idtosession($id);
         $generic-> redirect("..\index.php");
+        
     }
 }
 ?>

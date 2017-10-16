@@ -16,4 +16,3 @@ require 'includes/config.php';
         </ol>
     </body>
 </html>
- 

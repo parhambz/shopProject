@@ -113,4 +113,11 @@ class comment {
         }
         return $stmt->fetchall(PDO::FETCH_ASSOC);
     }
+    function count (){
+        global $db;
+        $query="SELECT COUNT(*) FROM comment";
+        $stmt=$db->query ($query);
+        $a =$stmt->fetch( PDO::FETCH_ASSOC);
+        return $a['COUNT(*)'];
+    }
 }

@@ -28,4 +28,8 @@ class generic {
         }
         $this->redirect("./index.php");
     }
+    function enc ($password){
+        global $salt;
+        return md5($password.$salt);
+    }
 }

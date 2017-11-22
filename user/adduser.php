@@ -15,7 +15,8 @@ if ($generic->ispost()) {
     if (count($errors) == 0) {
         $id = $user->adduser($firstname, $lastname, $email, $password);
         if ($id == -1) {
-            echo "duplicate email";
+            $generic->addFlashMsg("this eamil is taken!");
+            echo $generic->showFlashMsg();
         } else {
             $info = $user->getUserInfo($id);
             echo "<h3>" . $info['firstname'] . " " . $info['lastname'] . " " . "added" . "</h3>";

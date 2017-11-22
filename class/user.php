@@ -1,14 +1,15 @@
 <?php
 class user {
 function addUser($firstname,$lastname,$email,$password){
-    global $db;
+    global $db,$generic;
+    $pass= $generic->enc($password);
     $query="INSERT INTO user SET firstname=:firstname , lastname=:lastname,email=:email,password=:password";
 $stmt= $db->prepare($query);
 $res=$stmt->execute([
      ':firstname'=>$firstname,
      ':lastname'=>$lastname,
      ':email'=>$email,
-     ':password'=>$password
+     ':password'=>$pass
     ]);
  if($res===FALSE && $stmt->errorCode() == 23000){
         return -1;
@@ -23,11 +24,12 @@ return $db->lastinsertid();
 }
 
 function login($email,$password){
-    global $db;
+    global $db,$generic;
+    $pass=$generic->enc($password);
     $query="SELECT * FROM user WHERE email=:email AND password=:password";
     $stmt=$db->prepare($query);
     $res=$stmt->execute([
-        ":email"=>$email,":password"=>$password 
+        ":email"=>$email,":password"=>$pass
     ]);
    
    if ($res === false) {
@@ -38,8 +40,8 @@ function login($email,$password){
     }
    $user= $stmt->fetch(PDO::FETCH_ASSOC);
     if(count($user)!==0){
-   $id=$user['id'];
-    return $id;}
+    return $user;
+    }
  else {
     return FALSE;
 }
@@ -76,11 +78,11 @@ function getUserInfo($id){
    
    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
-function idToSession ($id){
-    $_SESSION['user']=$id;
+function idToSession ($u){
+    $_SESSION['user']=$u['id'];
+    $_SESSION['rank']=$u['rank'];
 }
 function logout(){
-    global $userRank;
     unset($_SESSION['user']);
     $_SESSION['rank']=-1;
 }

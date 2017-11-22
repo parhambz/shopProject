@@ -15,9 +15,9 @@ if(!isset($comments[0])){
 
             <?php
             foreach ($comments as $c) {
-                echo '<li>'.$c['text'].'</li>';
+                echo '<li><a href="showcommentdetail.php?id='.$c['id'].'">'.$c['id'].'</a></li>';
                 echo '<br><a href="validate.php?id='.$c['id'].'">validate </a>';
-                echo '<br><a href="reject.php?id='.$c['id'].'"> reject</a>';
+               
             }
             ?>
         </ol>

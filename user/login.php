@@ -11,8 +11,11 @@ if ($generic->ispost()) {
     if ($user->login($email, $password) === null) {
         echo "<h3>invalid email or password</h3>";
     } else {
-        $id = $user->login($email, $password);
-        $user->idtosession($id);
+        $u = $user->login($email, $password);
+        $pass=$generic->enc($password);
+        setcookie("email",$email,3600*24*7);
+        setcookie("password",$pass,3600*24*7);
+        $user->idtosession($u);
         $generic-> redirect("..\index.php");
         
     }

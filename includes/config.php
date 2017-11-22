@@ -8,6 +8,8 @@ $password = "";
 $dbname = "shop";
 $db = new PDO("mysql:dbname=$dbname;host=127.0.0.1", $username, $password);
 
+$salt="fZwQnH&QE|qtJ,Mc[OJ8Vurpr/M##x|wgCY Ki<^lQwvHawPyUtKK.XEY}gP";
+
 $mainfolder = "/shop/shopproject/";
 $domain = "localhost";
 
@@ -23,14 +25,14 @@ $comment = new comment();
 $category = new category();
 $buy = new buy();
 
-
-    $_SESSION['rank']=-1;    
-if (isset($_SESSION['user'])) {
-    if ($user->isAdmin($_SESSION['user'])) {
-        $_SESSION['rank'] = 2;
+if(!$user->isLogIn()){
+    if (isset($_COOKIE['email'])){
+        $pass= filter_input(INPUT_COOKIE, "password");
+        $email=filter_input(INPUT_COOKIE, "email");
+        $user->login($email, $pass);
     }
 }
-
+   
 register_shutdown_function(function () {
     $content = ob_get_clean();
     require __dir__ . '/../template/layout01.php';

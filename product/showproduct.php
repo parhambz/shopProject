@@ -26,6 +26,7 @@ if ($generic->ispost()) {
                 <td>price</td>
                 <td>sku</td>
                 <td>category</td>
+                <td>off</td>
             </tr>
             <tr>
                 <td><?php echo $pro['name']; ?></td>
@@ -33,6 +34,7 @@ if ($generic->ispost()) {
                 <td><?php echo $pro['price']; ?></td>
                 <td><?php echo $pro['sku']; ?></td>
                 <td><?php echo $category->getCategoryName($pro['categoryId']); ?></td>
+                <td><?php echo $pro['off']; ?></td>
             </tr>
 
         </table>

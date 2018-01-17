@@ -1,10 +1,10 @@
 <?php
-require __dir__.'/../includes/config.php';
+require __dir__ . '/../includes/config.php';
 $proId = filter_input(INPUT_GET, "proId");
 $pro = $product->getProductInfo($proId);
 $editurl = "editproduct.php" . "?proId=" . $proId;
 $deleteProductUrl = "deleteproduct.php" . "?proId=" . $proId;
-$addCommentUrl="../comment/addcomment.php";
+$addCommentUrl = "../comment/addcomment.php";
 $replyId = 0;
 $comments = $comment->getCommentsForShow($proId);
 if ($user->islogin()) {
@@ -39,7 +39,7 @@ if ($generic->ispost()) {
 
         </table>
         <br>
-        <a href="../buy/addtocart.php?proId=<?=$proId?>&n=1">Add to cart</a>
+        <a href="../buy/addtocart.php?proId=<?= $proId ?>&n=1">Add to cart</a>
         <?php
         if ($user->islogin()) {
             if ($user->isAdmin($_SESSION['user'])) {
@@ -54,13 +54,13 @@ if ($generic->ispost()) {
             <?php
             foreach ($comments as $c) {
                 $person = $user->getuserinfo($c['userId']);
-                $commentId=$c['id'];
-                $deleteCommentUrl ="../comment/deletecomment.php" . "?commentId=" . $commentId;
+                $commentId = $c['id'];
+                $deleteCommentUrl = "../comment/deletecomment.php" . "?commentId=" . $commentId;
                 echo '<li>';
                 echo $person['firstname'] . " " . $person['lastname'] . " : " . $c['text'];
                 if (isset($_SESSION['user'])) {
                     if ($person['id'] == $_SESSION['user']) {
-                        echo '<a href="'.$deleteCommentUrl.'"> Delete</a>';
+                        echo '<a href="' . $deleteCommentUrl . '"> Delete</a>';
                     }
                 }
                 echo '</li>';
@@ -71,10 +71,10 @@ if ($generic->ispost()) {
         if ($user->islogin()) {
 
             echo '   
-        <form method="POST" action="'.$addCommentUrl.'">
+        <form method="POST" action="' . $addCommentUrl . '">
             <label>Comment :<textarea row="10" cols="30" name="commentTxt"></textarea></label>
             <input type="submit" value="Send">
-<input name="proId" type="hidden" value='.$proId.'>
+<input name="proId" type="hidden" value=' . $proId . '>
     </form>';
         }
         ?>

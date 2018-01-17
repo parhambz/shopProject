@@ -3,6 +3,7 @@
 session_start();
 ob_start();
 
+
 $username = "root";
 $password = "";
 $dbname = "shop";
@@ -26,7 +27,7 @@ $category = new category();
 $buy = new buy();
 
 if(!$user->isLogIn()){
-    if (isset($_COOKIE['email'])){
+    if (isset($_COOKIE['user'])){
         $pass= filter_input(INPUT_COOKIE, "password");
         $email=filter_input(INPUT_COOKIE, "email");
         $user->login($email, $pass);

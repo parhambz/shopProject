@@ -23,7 +23,7 @@ if ($res === false) {
 return $db->lastinsertid();
 }
 
-function login($email,$password){
+function login($email,$password,$remember){
     global $db,$generic;
     $pass=$generic->enc($password);
     $query="SELECT * FROM user WHERE email=:email AND password=:password";
@@ -40,6 +40,10 @@ function login($email,$password){
     }
    $user= $stmt->fetch(PDO::FETCH_ASSOC);
     if(count($user)!==0){
+    if($remember==1){
+    $_COOKIE['user']['email']==$email;
+    $_COOKIE['user']['password']==$password;
+    }
     return $user;
     }
  else {
@@ -97,4 +101,10 @@ function isAdmin($id){
         return TRUE;
     }
 }}
+
+function cookieLogin(){
+    $user= filter_input(INPUT_COOKIE, "user");
+    $id=$this->login($user['email'], $user['password'], 0);
+    $_SESSION['user']=$id;
 }
+    }
